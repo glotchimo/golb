@@ -17,5 +17,5 @@ decided to write my own (yet another) blog engine that's as simple
 and dumb as possible.
 
 Golb is a SQLite-using, Markdown-rendering, RSS-providing blog engine
-written in Go and managed via a TUI that allows users to write content
+written in Go and managed via a CLI that allows you to write content
 and then post it, and that's about it.
