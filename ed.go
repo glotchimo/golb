@@ -17,20 +17,7 @@ func edUsage(w io.Writer) {
 	fmt.Fprint(w, "  Edit a post")
 }
 
-func edCmd(args []string) {
-	// Setup SQLite DB/connection
-	db, err := sql.Open("sqlite", os.Getenv("GOLB_DB"))
-	if err != nil {
-		fmt.Printf("error connecting to database: %s", err.Error())
-		os.Exit(1)
-	}
-	defer db.Close()
-
-	if _, err := db.Exec(postsSQL); err != nil {
-		fmt.Printf("error creating posts table: %s", err.Error())
-		os.Exit(1)
-	}
-
+func edCmd(db *sql.DB, args []string) {
 	// Parse and validate inputs
 	fs := flag.NewFlagSet("ed", flag.ExitOnError)
 	fs.Usage = inject(os.Stderr, edUsage)

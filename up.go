@@ -16,20 +16,7 @@ func upUsage(w io.Writer) {
 	fmt.Fprint(w, "  Host the server")
 }
 
-func upCmd() {
-	// Setup SQLite DB/connection
-	db, err := sql.Open("sqlite", os.Getenv("GOLB_DB"))
-	if err != nil {
-		fmt.Printf("error connecting to database: %s", err.Error())
-		os.Exit(1)
-	}
-	defer db.Close()
-
-	if _, err := db.Exec(postsSQL); err != nil {
-		fmt.Printf("error creating posts table: %s", err.Error())
-		os.Exit(1)
-	}
-
+func upCmd(db *sql.DB) {
 	// Handle requests by returning post contents in a list
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		// Get the posts

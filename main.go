@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	_ "embed"
 	"fmt"
 	"io"
@@ -15,6 +16,7 @@ var (
 	dbURL  = os.Getenv("GOLB_DB")
 	domain = os.Getenv("GOLB_DOMAIN")
 	name   = os.Getenv("GOLB_NAME")
+	port   = os.Getenv("GOLB_PORT")
 )
 
 type Post struct {
@@ -49,19 +51,32 @@ func main() {
 		os.Exit(2)
 	}
 
+	// Setup SQLite DB/connection
+	db, err := sql.Open("sqlite", os.Getenv("GOLB_DB"))
+	if err != nil {
+		fmt.Printf("error connecting to database: %s", err.Error())
+		os.Exit(1)
+	}
+	defer db.Close()
+
+	if _, err := db.Exec(postsSQL); err != nil {
+		fmt.Printf("error creating posts table: %s", err.Error())
+		os.Exit(1)
+	}
+
 	switch os.Args[1] {
 	case "up":
-		upCmd()
+		upCmd(db)
 	case "mk":
-		mkCmd(os.Args[1:])
+		mkCmd(db, os.Args[1:])
 	case "ls":
-		lsCmd()
+		lsCmd(db)
 	case "dl":
-		dlCmd(os.Args[1:])
+		dlCmd(db, os.Args[1:])
 	case "ed":
-		edCmd(os.Args[1:])
+		edCmd(db, os.Args[1:])
 	case "rm":
-		rmCmd(os.Args[1:])
+		rmCmd(db, os.Args[1:])
 	default:
 		fmt.Println("That command is not supported (--help)")
 		os.Exit(2)
