@@ -60,5 +60,7 @@ Each subcommand has its own help dialogue that you can see by adding `-h`.
 - [x] Add an ed command for editing posts
 - [x] Add an ls command for listing all posts
 - [x] Actually host something
-- [ ] Figure out SSH-tunneled connection to remote DB
-- [ ] Write a server-side Markdown renderer (i.e. MD -> HTML)
+- [x] Render Markdown into HTML
+- [ ] Add logging
+- [ ] Get SSL set up
+- [ ] Tweak formatting
