@@ -55,6 +55,8 @@ func main() {
 		upCmd(os.Args[1:])
 	case "mk":
 		mkCmd(os.Args[1:])
+	case "ls":
+		lsCmd()
 	case "dl":
 		dlCmd(os.Args[1:])
 	case "ed":
