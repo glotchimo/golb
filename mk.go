@@ -44,14 +44,14 @@ func mkCmd(args []string) {
 	fs := flag.NewFlagSet("mk", flag.ExitOnError)
 	fs.Usage = inject(os.Stderr, mkUsage)
 
-	fs.StringVar(&title, "t", "", "Title")
-	fs.StringVar(&title, "title", "", "Title")
+	fs.StringVar(&title, "t", "", "")
+	fs.StringVar(&title, "title", "", "")
 
-	fs.StringVar(&tags, "g", "", "Tags (comma-separated)")
-	fs.StringVar(&tags, "tags", "", "Tags (comma-separated)")
+	fs.StringVar(&tags, "g", "", "")
+	fs.StringVar(&tags, "tags", "", "")
 
-	fs.StringVar(&path, "p", "", "Path to post content (i.e. .md file)")
-	fs.StringVar(&path, "path", "", "Path to post content (i.e. .md file)")
+	fs.StringVar(&path, "p", "", "")
+	fs.StringVar(&path, "path", "", "")
 
 	if err := fs.Parse(args[1:]); err != nil {
 		fmt.Printf("error parsing flags (maybe consult -h): %s", err.Error())

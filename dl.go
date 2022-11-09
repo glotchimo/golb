@@ -46,7 +46,7 @@ func dlCmd(args []string) {
 		os.Exit(2)
 	}
 
-	// Create the post
+	// Get the post
 	sel := goqu.Dialect("sqlite").
 		Select(
 			goqu.C("id"),
@@ -74,6 +74,7 @@ func dlCmd(args []string) {
 		os.Exit(1)
 	}
 
+	// Write the post content to STDOUT
 	if _, err := io.Copy(os.Stdout, bytes.NewBufferString(post.Content)); err != nil {
 		fmt.Printf("error writing post content out: %s\n", err.Error())
 		os.Exit(1)

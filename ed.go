@@ -61,7 +61,7 @@ func edCmd(args []string) {
 		os.Exit(1)
 	}
 
-	// Create the post
+	// Update the post
 	upd := goqu.Dialect("sqlite").
 		Update(goqu.T("posts")).
 		Set(goqu.Record{"content": content})
