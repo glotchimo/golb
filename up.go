@@ -86,5 +86,8 @@ func upCmd(db *sql.DB) {
 		fmt.Fprintf(w, "brought to you by [golb](ssh://git.glotchimo.dev/golb) with <3")
 	})
 
-	http.ListenAndServe(":8080", nil)
+	if port == "" {
+		port = "8080"
+	}
+	http.ListenAndServe(":"+port, nil)
 }
