@@ -6,8 +6,10 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/doug-martin/goqu/v9"
+	"github.com/gomarkdown/markdown"
 )
 
 func upUsage(w io.Writer) {
@@ -63,27 +65,24 @@ func upCmd(db *sql.DB) {
 			os.Exit(1)
 		}
 
-		// Write blog name
+		// Combine page content
+		var page string
+
 		if name != "" {
-			var border string
-			for i := 0; i < len(name); i++ {
-				border += "-"
-			}
-
-			fmt.Fprintf(w, "%s |\n%s-+\n\n", name, border)
+			page += "# " + name + "\n\n---\n\n"
 		}
 
-		// Write posts
 		for _, p := range posts {
-			fmt.Fprintf(w, "%s\n", p.Title)
-			fmt.Fprintf(w, "%s\n", p.Created.String())
-			fmt.Fprintf(w, "%s\n", p.Tags)
-			fmt.Fprintf(w, "================================\n")
-			fmt.Fprintf(w, "%s\n\n\n", p.Content)
+			page += "## " + p.Title + "\n\n"
+			page += "*" + p.Created.Format(time.RFC1123) + "* // *" + p.Tags + "*" + "\n\n"
+			page += p.Content
+			page += "\n\n---\n\n"
 		}
+		page += "brought to you by [golb](ssh://git.glotchimo.dev/golb) with <3"
 
-		// Write footer
-		fmt.Fprintf(w, "brought to you by [golb](ssh://git.glotchimo.dev/golb) with <3")
+		md := []byte(page)
+		output := markdown.ToHTML(md, nil, nil)
+		w.Write(output)
 	})
 
 	if port == "" {
