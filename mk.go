@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	_ "embed"
 	"flag"
 	"fmt"
 	"io"
@@ -14,22 +13,10 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-//go:embed posts.sql
-var postsSQL string
-
-type Post struct {
-	ID      string
-	Hash    string
-	Title   string
-	Tags    string
-	Content string
-	Created time.Time
-}
-
-func postUsage(w io.Writer) {
-	fmt.Fprint(w, "Usage: golb post [OPTS]\n")
+func mkUsage(w io.Writer) {
+	fmt.Fprint(w, "Usage: golb mk [OPTS]\n")
 	fmt.Fprint(w, "\n")
-	fmt.Fprint(w, "  Post to golb")
+	fmt.Fprint(w, "  Make a post")
 	fmt.Fprint(w, "\n")
 	fmt.Fprint(w, "Options:\n")
 	fmt.Fprint(w, "  -t, --title		Post title")
@@ -37,7 +24,7 @@ func postUsage(w io.Writer) {
 	fmt.Fprint(w, "  -p, --path			Path to post content (.md file)")
 }
 
-func postCmd(args []string) {
+func mkCmd(args []string) {
 	// Setup SQLite DB/connection
 	db, err := sql.Open("sqlite", os.Getenv("GOLB_DB"))
 	if err != nil {
@@ -54,8 +41,8 @@ func postCmd(args []string) {
 	// Parse and validate inputs
 	var title, tags, path string
 
-	fs := flag.NewFlagSet("post", flag.ExitOnError)
-	fs.Usage = inject(os.Stderr, postUsage)
+	fs := flag.NewFlagSet("mk", flag.ExitOnError)
+	fs.Usage = inject(os.Stderr, mkUsage)
 
 	fs.StringVar(&title, "t", "", "Title")
 	fs.StringVar(&title, "title", "", "Title")
