@@ -14,6 +14,7 @@ var (
 
 	dbURL  = os.Getenv("GOLB_DB")
 	domain = os.Getenv("GOLB_DOMAIN")
+	name   = os.Getenv("GOLB_NAME")
 )
 
 type Post struct {
@@ -52,7 +53,7 @@ func main() {
 
 	switch os.Args[1] {
 	case "up":
-		upCmd(os.Args[1:])
+		upCmd()
 	case "mk":
 		mkCmd(os.Args[1:])
 	case "ls":
