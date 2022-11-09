@@ -30,19 +30,17 @@ func inject(w io.Writer, fn func(io.Writer)) func() {
 }
 
 func usage(w io.Writer) {
-	fmt.Fprint(w, "Usage: golb <CMD> [OPTS]\n", os.Args[0])
+	fmt.Fprint(w, "Usage: golb <CMD> [OPTS]\n")
 	fmt.Fprint(w, "\n")
-	fmt.Fprint(w, "  CLI for hosting and posting golb")
+	fmt.Fprint(w, "  CLI for hosting and managing a golb blog\n")
 	fmt.Fprint(w, "\n")
 	fmt.Fprint(w, "Commands:\n")
-	fmt.Fprint(w, "  up		Host the server")
-	fmt.Fprint(w, "  mk		Make a post")
-	fmt.Fprint(w, "  dl		Download a post")
-	fmt.Fprint(w, "  ed		Edit a post")
-	fmt.Fprint(w, "  rm		Remove a post")
-	fmt.Fprint(w, "\n")
-	fmt.Fprint(w, "Options:\n")
-	fmt.Fprint(w, "  -h, --help		Show help")
+	fmt.Fprint(w, "  up		Host the server\n")
+	fmt.Fprint(w, "  mk		Make a post\n")
+	fmt.Fprint(w, "  mk		List posts\n")
+	fmt.Fprint(w, "  dl		Download a post\n")
+	fmt.Fprint(w, "  ed		Edit a post\n")
+	fmt.Fprint(w, "  rm		Remove a post\n")
 }
 
 func main() {
