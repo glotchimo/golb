@@ -51,7 +51,8 @@ func edCmd(db *sql.DB, args []string) {
 	// Update the post
 	upd := goqu.Dialect("sqlite").
 		Update(goqu.T("posts")).
-		Set(goqu.Record{"content": content})
+		Set(goqu.Record{"content": content}).
+		Where(goqu.I("id").Eq(pid))
 	q, a, err := upd.ToSQL()
 	if err != nil {
 		fmt.Printf("error building update query: %s\n", err.Error())
