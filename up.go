@@ -11,6 +11,7 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/gomarkdown/markdown"
+	"github.com/gomarkdown/markdown/parser"
 )
 
 func upUsage(w io.Writer) {
@@ -82,7 +83,9 @@ func upCmd(db *sql.DB) {
 		page += "brought to you by [golb](ssh://git.glotchimo.dev/golb) with <3"
 
 		md := []byte(page)
-		output := markdown.ToHTML(md, nil, nil)
+		extensions := parser.CommonExtensions | parser.AutoHeadingIDs
+		parser := parser.NewWithExtensions(extensions)
+		output := markdown.ToHTML(md, parser, nil)
 		w.Write(output)
 	})
 
