@@ -23,6 +23,8 @@ func upUsage(w io.Writer) {
 func upCmd(db *sql.DB) {
 	// Handle requests by returning post contents in a list
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s: %s %s (%dB)", r.RemoteAddr, r.Method, r.Host, r.ContentLength)
+
 		// Get the posts
 		sel := goqu.Dialect("sqlite").
 			Select(
