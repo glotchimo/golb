@@ -82,7 +82,7 @@ func upCmd(db *sql.DB) {
 			page += p.Content
 			page += "\n\n---\n\n"
 		}
-		page += "brought to you by [golb](ssh://git.glotchimo.dev/golb) with <3"
+		page += "brought to you by [golb](ssh://git.glotchimo.dev/golb) // meant to be viewed in a [reader](https://www.maketecheasier.com/enable-browser-reader-mode/)"
 
 		md := []byte(page)
 		extensions := parser.CommonExtensions | parser.AutoHeadingIDs
