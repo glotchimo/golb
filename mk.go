@@ -100,6 +100,6 @@ func mkCmd(db *sql.DB, args []string) {
 	}
 
 	// Report and exit
-	fmt.Printf("posted %s to %s/%s\n", path, domain, post.ID)
+	fmt.Printf("posted %s to %s/%s\n", path, conf.Domain, post.ID)
 	os.Exit(0)
 }

@@ -7,17 +7,22 @@ import (
 	"io"
 	"os"
 	"time"
+
+	"gopkg.in/yaml.v3"
 )
 
 var (
 	//go:embed posts.sql
 	postsSQL string
-
-	dbURL  = os.Getenv("GOLB_DB")
-	domain = os.Getenv("GOLB_DOMAIN")
-	name   = os.Getenv("GOLB_NAME")
-	port   = os.Getenv("GOLB_PORT")
+	conf     Conf
 )
+
+type Conf struct {
+	Name        string `yaml:"name"`
+	Domain      string `yaml:"domain"`
+	Port        string `yaml:"port"`
+	DatabaseURL string `yaml:"database_url"`
+}
 
 type Post struct {
 	ID      string
@@ -51,8 +56,21 @@ func main() {
 		os.Exit(2)
 	}
 
+	// Open and parse config file
+	f, err := os.Open("conf.yml")
+	if err != nil {
+		fmt.Printf("error opening config: %s", err.Error())
+		os.Exit(2)
+	}
+	defer f.Close()
+
+	if err := yaml.NewDecoder(f).Decode(&conf); err != nil {
+		fmt.Printf("error parsing config: %s", err.Error())
+		os.Exit(1)
+	}
+
 	// Setup SQLite DB/connection
-	db, err := sql.Open("sqlite", os.Getenv("GOLB_DB"))
+	db, err := sql.Open("sqlite", conf.DatabaseURL)
 	if err != nil {
 		fmt.Printf("error connecting to database: %s", err.Error())
 		os.Exit(1)

@@ -6,6 +6,7 @@ require (
 	github.com/doug-martin/goqu/v9 v9.18.0
 	github.com/gomarkdown/markdown v0.0.0-20221013030248-663e2500819c
 	github.com/rs/xid v1.4.0
+	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.19.4
 )
 

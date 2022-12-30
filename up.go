@@ -72,8 +72,8 @@ func upCmd(db *sql.DB) {
 		// Combine page content
 		var page string
 
-		if name != "" {
-			page += "# " + name + "\n\n---\n\n"
+		if conf.Name != "" {
+			page += "# " + conf.Name + "\n\n---\n\n"
 		}
 
 		for _, p := range posts {
@@ -91,8 +91,8 @@ func upCmd(db *sql.DB) {
 		w.Write(output)
 	})
 
-	if port == "" {
-		port = "8080"
+	if conf.Port == "" {
+		conf.Port = "8080"
 	}
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+conf.Port, nil))
 }
