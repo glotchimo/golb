@@ -19,9 +19,9 @@ var (
 
 type Conf struct {
 	Heading struct {
-		Title   string   `yaml:"title"`
-		Contact string   `yaml:"contact"`
-		Links   []string `yaml:"links"`
+		Title string `yaml:"title"`
+		Email string `yaml:"email"`
+		Git   string `yaml:"git"`
 	} `yaml:"heading"`
 	Domain string `yaml:"domain"`
 	Port   string `yaml:"port"`

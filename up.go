@@ -71,11 +71,8 @@ func upCmd(db *sql.DB) {
 
 		// Compose page content
 		var page string
-		page += "# " + conf.Heading.Title
-		page += "#### " + conf.Heading.Contact
-		for _, l := range conf.Heading.Links {
-			page += "- " + l
-		}
+		page += "# " + conf.Heading.Title + "\n"
+		page += "#### " + conf.Heading.Email + " // " + conf.Heading.Git
 		page += "\n\n---\n\n"
 		for _, p := range posts {
 			page += "## " + p.Title + "\n\n"
