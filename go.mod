@@ -1,4 +1,4 @@
-module git.glotchimo.dev/golb
+module git.plain.technology/golb
 
 go 1.19
 
