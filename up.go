@@ -80,7 +80,7 @@ func upCmd(db *sql.DB) {
 			page += p.Content
 			page += "\n\n---\n\n"
 		}
-		page += "brought to you by [golb](ssh://git.glotchimo.dev/golb) // meant to be viewed in a [reader](https://www.maketecheasier.com/enable-browser-reader-mode/)"
+		page += "brought to you by [golb](ssh://git.plain.technology:23231/golb) // meant to be viewed in a [reader](https://www.maketecheasier.com/enable-browser-reader-mode/)"
 
 		// Compile markdown to HTML and write out
 		md := []byte(page)
