@@ -69,13 +69,14 @@ func upCmd(db *sql.DB) {
 			os.Exit(1)
 		}
 
-		// Combine page content
+		// Compose page content
 		var page string
-
-		if conf.Name != "" {
-			page += "# " + conf.Name + "\n\n---\n\n"
+		page += "# " + conf.Heading.Title
+		page += "#### " + conf.Heading.Contact
+		for _, l := range conf.Heading.Links {
+			page += "- " + l
 		}
-
+		page += "\n\n---\n\n"
 		for _, p := range posts {
 			page += "## " + p.Title + "\n\n"
 			page += "*" + p.Created.Format(time.RFC1123) + "* // *" + p.Tags + "*" + "\n\n"
@@ -84,6 +85,7 @@ func upCmd(db *sql.DB) {
 		}
 		page += "brought to you by [golb](ssh://git.glotchimo.dev/golb) // meant to be viewed in a [reader](https://www.maketecheasier.com/enable-browser-reader-mode/)"
 
+		// Compile markdown to HTML and write out
 		md := []byte(page)
 		extensions := parser.CommonExtensions | parser.AutoHeadingIDs
 		parser := parser.NewWithExtensions(extensions)

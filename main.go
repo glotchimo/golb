@@ -18,10 +18,14 @@ var (
 )
 
 type Conf struct {
-	Name        string `yaml:"name"`
-	Domain      string `yaml:"domain"`
-	Port        string `yaml:"port"`
-	DatabaseURL string `yaml:"database_url"`
+	Heading struct {
+		Title   string   `yaml:"title"`
+		Contact string   `yaml:"contact"`
+		Links   []string `yaml:"links"`
+	}
+	Domain string `yaml:"domain"`
+	Port   string `yaml:"port"`
+	DSN    string `yaml:"database_url"`
 }
 
 type Post struct {
@@ -70,7 +74,7 @@ func main() {
 	}
 
 	// Setup SQLite DB/connection
-	db, err := sql.Open("sqlite", conf.DatabaseURL)
+	db, err := sql.Open("sqlite", conf.DSN)
 	if err != nil {
 		fmt.Printf("error connecting to database: %s", err.Error())
 		os.Exit(1)
