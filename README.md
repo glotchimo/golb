@@ -61,6 +61,6 @@ Each subcommand has its own help dialogue that you can see by adding `-h`.
 - [x] Add an ls command for listing all posts
 - [x] Actually host something
 - [x] Render Markdown into HTML
-- [ ] Add logging
-- [ ] Get SSL set up
-- [ ] Tweak formatting
+- [x] Add logging
+- [ ] Add header links for shareability
+- [ ] Make an FS-backed version?
