@@ -22,7 +22,7 @@ type Conf struct {
 		Title   string   `yaml:"title"`
 		Contact string   `yaml:"contact"`
 		Links   []string `yaml:"links"`
-	}
+	} `yaml:"heading"`
 	Domain string `yaml:"domain"`
 	Port   string `yaml:"port"`
 	DSN    string `yaml:"database_url"`
